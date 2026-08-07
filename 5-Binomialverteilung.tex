@@ -1,0 +1,587 @@
+\section{Binomialverteilung}
+
+\begin{bsp}
+    {Warm up}{}
+    Wie viele Wörter der Länge 10 können gebildet werden, wenn der Buchstabe `G' genau 2-mal und `V' genau 8-mal vorkommen soll?
+
+    \vspace*{5cm}
+\end{bsp}
+
+
+\begin{LA}
+    {}{}
+    Alice spielt zehn Mal beim amerikanischen Roulette. Dabei setzt sie jedes Mal auf ein `Carrèe'. Dies ist eine Wette, bei der man auf vier Zahlen setzt. Ihre Gewinnwahrscheinlichkeit beträgt dann $\frac{4}{38} \approx 10.5\%$.
+    \begin{enumerate}
+        \item Wie gross ist die Wahrscheinlichkeit, dass Alice kein einziges Mal gewinnt?
+        \item Wie gross ist die Wahrscheinlichkeit, dass sie genau einmal gewinnt?
+        \item Wie gross ist die Wahrscheinlichkeit, dass sie genau zweimal gewinnt?
+        \item Wie gross ist die Wahrscheinlichkeit, dass sie höchstens zweimal gewinnt?
+        \item Wie gross ist die Wahrscheinlichkeit, dass sie mindestens dreimal gewinnt?
+        \item Wie viele Gewinne kann sie erwarten?
+    \end{enumerate}
+\end{LA}
+
+\clearpage
+\subsection{Bernoulli-Ketten und Binomialverteilung}
+\begin{definition}
+    {Bernoulli-Versuche}{}
+    Ein Zufallsversuch mit nur zwei Ergebnissen heisst ein \textit{Bernoulli-Versuch}\footnote{Benannt nach dem Basler Mathematiker Jakob I. Bernoulli (1655-1705).}. \\
+    Es hat sich eingebürgert, eine der beiden Möglichkeiten `Erfolg', und die andere `Misserfolg' zu nennen. \\
+    Die Wahrscheinlichkeit für den Erfolg wird mit \( p \), die Wahrscheinlichkeit für den Misserfolg mit \( q \) bezeichnet. \\
+    Weil es nur diese beiden Möglichkeiten gibt, gilt \( q = 1 - p \)
+\end{definition}
+\begin{bsp}
+    {}{}
+    \begin{itemize}
+    \item Die möglichen Ergebnisse beim Münzwurf sind `Kopf' oder `Zahl'.
+    \item Das Geschlecht eines Neugeborenen kann Knabe oder Mädchen sein.
+    \item Beim Würfeln interessieren die beiden Möglichkeiten `Sechs' oder `Keine Sechs'.
+    \item Eine der vier Karten Ass, König, Dame, Bube wird gezogen. Von Interesse ist `Ass' oder `Kein Ass'.
+    \item Eine zufällig ausgewählte Person aus der Schweiz wird gefragt, ob sie in den letzten sieben Tagen mindestens 30 Minuten Sport getrieben hat. Die möglichen Antworten sind `Ja' und `Nein'.
+    \item Bei einer Hygienekontrolle in einem Schwimmbad wird gemessen, ob der Grenzwert für die Anzahl Keime in einer Wasserprobe eingehalten oder überschritten wird.
+    \end{itemize}
+\end{bsp}
+
+\begin{definition}
+    {Bernoulli-Kette}{}
+    Wird ein Bernoulli-Versuch \( n \) Mal durchgeführt, ohne dass sich die Erfolgswahrscheinlichkeit ändert, so spricht man von einer \textit{Bernoulli-Kette} der Länge \( n \). \\
+    Die Erfolgswahrscheinlichkeit darf weder davon abhängen, wie viele Wiederholungen schon stattgefunden haben, noch davon, wie diese ausgefallen sind. \\
+    Die einzelnen Bernoulli-Versuche müssen also unabhängig sein.
+\end{definition}
+
+Bei Bernoulli-Ketten der Länge $n$ interessiert uns häufig, wie viele Erfolge eintreten werden. Im Allgemeinen betrachten wir also die Zufallsvariable $X$: Anzahl Erfolge. Für die Verteilung dieser Zufallsvariable gilt:
+\begin{satz}
+    {Binomialverteilung}{}
+    Für die Verteilung der Zufallsvariable \( X \): Anzahl Erfolge bei einer Bernoulli-Kette der Länge \( n \) gilt
+        \[
+        P(X = k) = \binom{n}{k} p^k q^{n-k}
+        \]
+        Man sagt: \( X \) ist eine \textit{binomialverteilte Zufallsvariable}.
+
+\end{satz}
+\begin{proof}
+    Für den Beweis stelle man sich einen Wahrscheinlichkeitsbaum vor, der aus $n$ Stufen besteht, wobei bei jeder Stufe zwei Ergebnisse `Erfolg' (E) und `Misserfolg' (M) möglich sind.
+
+    Weil die Erfolgswahrscheinlichkeit bei jedem Schritt gleich bleibt, ist die Wahrscheinlichkeit für jeden Pfad mit $k$ Erfolgen und $n-k$ Misserfolgen
+    $$ p^k q^{n-k}$$
+
+    Jeder Pfad mit $k$ Erfolgen und $n-k$ Misserfolgen kann durch ein Wort der Länge $n$ dargestellt werden, das aus $k$ Buchstaben `E' und $n-k$ Buchstaben `M' besteht. Die Anzahl solcher Wörter ist 
+    $$ \binom{n}{k}$$
+
+    Insgesamt erhält man so das Ergebnis 
+    \[
+        P(X = k) = \binom{n}{k} p^k q^{n-k}
+    \]
+\end{proof}
+
+\begin{bsp}
+    {}{}
+    Ein Würfel wird 20-mal geworfen.  
+\begin{itemize}
+\item Mit welcher Wahrscheinlichkeit erscheint genau 4-mal die Augenzahl sechs?
+\item Mit welcher Wahrscheinlichkeit erscheint mindestens 4-mal die Augenzahl sechs?
+\end{itemize}
+
+\vspace*{10cm}
+% Da die Erfolgswahrscheinlichkeit bei jedem Wurf gleich ist \( p = \frac{1}{6} \), handelt es sich um ein Bernoulli-Experiment. Sei $X$: Anzahl Sechsen. Dann gilt:
+
+% \[
+% P(X=4) = \binom{20}{4} \cdot \left(\frac{1}{6}\right)^4 \cdot \left(\frac{5}{6}\right)^{16} \approx 20.22\%
+% \]
+
+% Für die Frage nach mindestens 4 Erfolgen lohnt sich die Betrachtung des Gegenereignisses:
+
+% \begin{align*}
+% P(X \ge 4) &= 1 - P (X \le 3) \\
+%     &= 1 - P(X=0) - P(X=1) - P(X=2) - P(X=3) \\
+%     & = 1 - \left(\frac{5}{6}\right)^{20} - 20 \cdot \left(\frac{1}{6}\right) \cdot \left(\frac{5}{6}\right)^{19} - \binom{20}{2} \cdot \left(\frac{1}{6}\right)^2 \cdot \left(\frac{5}{6}\right)^{18} - \binom{20}{3} \cdot \left(\frac{1}{6}\right)^3 \cdot \left(\frac{5}{6}\right)^{17} \\
+% &\approx 43.35\%
+% \end{align*}
+
+\end{bsp}
+
+\begin{bsp}
+    {}{}
+    In einer Urne sind 10 blaue und 20 rote Kugeln. Nacheinander werden 10 Kugeln ohne Zurücklegen aus der Urne gezogen. Mit welcher Wahrscheinlichkeit sind genau 5 davon blau?
+
+    \bigskip
+
+    In diesem Fall darf \textbf{nicht} mit der Binomialverteilung gerechnet werden. Die Erfolgswahrscheinlichkeit für die erste Kugel ist $\frac{10}{30}$, während sie für die zweite $\frac{9}{29}$ oder $\frac{10}{29}$ beträgt.
+\end{bsp}
+
+Für die Berechnung der Binomialverteilung gibt es im Taschenrechner zwei Funktionen: 
+\begin{itemize}
+    \item Für die Berechnung der Wahrscheinlichkeit \( P(X = k) \) gibt es die Funktion \\ \texttt{binomialpdf(n, p, k)}.
+    \item Für die Berechnung der Wahrscheinlichkeit \( P(X \le k) \) gibt es die Funktion \\ \texttt{binomialcdf(n, p, k)}.
+\end{itemize}
+
+\begin{bsp}
+{Anzahl Erfolge zwischen zwei Grenzen}{}
+Alice wirft 100-mal eine Münze.
+
+\bigskip
+
+
+Die Wahrscheinlichkeit, \textit{genau} 50-mal Kopf zu werfen, ist:
+% $$ P(X = 50) = \operatorname{binomialpdf}(100, 0.5, 50) \approx 0.0796 \approx 7.96\%$$
+\vspace*{2cm}
+
+\bigskip
+
+Die Wahrscheinlichkeit, dass Alice mindestens 45-mal und höchstens 55-mal Kopf wirft, ist:
+
+\vspace*{5cm}
+
+% \begin{align*}
+%     P(45 \le X \le 55) &= P(X\le 55) - P(X \le 44) \\
+%     &= \operatorname{binomialcdf}(100, 0.5, 55) - \operatorname{binomialcdf}(100, 0.5, 44)\\
+%     &\approx 0.8644 - 0.1356 \\
+%     &\approx 0.7288 
+% \end{align*}
+
+\bigskip
+
+Die Wahrscheinlichkeit, dass Alice mehr als 65-mal Kopf wirft, ist:
+
+\vspace*{3cm}
+% $$P(X > 65) = 1 - P(X \le 65) = 1- \operatorname{binomialcdf}(100, 0.5, 65) \approx 0.089\%$$
+
+\end{bsp}
+
+\clearpage
+\begin{ueb}
+    {}{}
+    \begin{enumerate}
+        \item Ein Würfel wird 10-mal geworfen. Wie gross ist die Wahrscheinlichkeit, \dots
+        \begin{enumerate}
+            \item \dots keine Sechs zu würfeln?
+            \item \dots genau dreimal eine Sechs zu würfeln?
+            \item \dots mindestens drei und höchstens sieben Sechsen zu würfeln?
+            \item \dots mindestens sieben Sechsen zu würfeln?
+            \item \dots mindestens eine Sechs zu würfeln?
+        \end{enumerate}
+        \item Bob löst einen Multiple-Choice-Test zum Thema `Potenzen'. Der Test besteht aus fünf Fragen, wobei es zu jeder Frage drei Antwortmöglichkeiten gibt, wovon genau eine richtig ist. Bob hat keine Ahnung und wählt bei jeder Frage eine Antwort zufällig aus. 
+        \begin{enumerate}
+            \item Mit welcher Wahrscheinlichkeit beantwortet er keine Frage richtig?
+            \item Mit welcher Wahrscheinlichkeit beantwortet er mindestens drei Fragen richtig?
+        \end{enumerate}
+        \item Eine Fluggesellschaft überbucht die Economy Class ihrer Langstreckenflüge regelmässig, weil immer wieder Passagiere, die ein Flugticket gekauft haben, nicht erscheinen. 
+        Kann ein Passagier wegen Überbuchung nicht mitfliegen, so muss er von der Fluggesellschaft entschädigt werden.
+        Im Airbus A380 der Lufthansa gibt es 336 Sitzplätze in der Economy Class. 
+        Nimm an, dass die Fluggesellschaft 350 Tickets verkauft und jeder Passagier mit einer Wahrscheinlichkeit von \( p = 0.95 \) erscheint.
+
+        \begin{enumerate}
+        \item Mit welcher Wahrscheinlichkeit erscheinen genau 336 Passagiere?
+        \item Mit welcher Wahrscheinlichkeit erscheinen höchstens 336 Passagiere?
+        \item Mit welcher Wahrscheinlichkeit müssen mehr als zwei Fluggäste entschädigt werden?
+        \item Es erscheinen tatsächlich zwei Fluggäste zu viel. In der Premium Economy Class gibt es 52 weitere Plätze, und die Fluggesellschaft hat 52 Tickets dafür verkauft. Mit welcher Wahrscheinlichkeit sind in dieser Klasse noch Sitzplätze für die zwei zusätzlichen Fluggäste frei?     Nimm dazu an, dass die Wahrscheinlichkeit, dass ein Passagier nicht erscheint, in beiden Klassen gleich ist.
+        \end{enumerate}
+        \end{enumerate}
+
+\end{ueb}
+
+
+
+\clearpage
+\emph{Lösungen:}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item $\approx 16.15\%$
+        \item $\approx 15.50\%$
+        \item $\approx 22.48 \%$
+        \item $\approx 0.03 \%$
+        \item $\approx 83.85\%$
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item $\approx 13.17\%$
+        \item $\approx 20.99\%$
+    \end{enumerate}
+
+    \item \begin{enumerate}
+        \item $\approx 0.073$
+        \item $\approx 0.84$
+        \item $\approx 0.064$
+        \item $\approx 0.74$
+    \end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\subsection{Eigenschaften der Binomialverteilung - TODO: E-AUFGABE 10 IST LANGWEILIG!}
+\begin{LA}
+    {Erwartungswert der Binomialverteilung}{}
+    \begin{enumerate}
+        \item Ein Würfel wird 300-mal geworfen. Wie viele Sechsen sind zu erwarten? 
+        \item Allgemein: Sei $X$ die Anzahl Erfolge in einer Bernoulli-Kette der Länge $n$ mit Erfolgswahrscheinlichkeit $p$. Wie gross ist der Erwartungswert von $X$?
+    \end{enumerate}
+
+    Obwohl intuitiv klar ist, wie man den Erwartungswert einer Binomialverteilung einfach berechnen kann, ist die Herleitung der Formel nicht ganz so einfach. Damit wir besser verstehen, wie diese Formel zustande kommt, betrachten wir die Fälle $n=2$ und $n=3$.
+
+    \begin{enumerate}[resume]
+        \item 	Berechnen Sie den Erwartungswert einer Bernoulli-Kette der Länge $n=2$ mit Erfolgswahrscheinlichkeit $p$ und Misserfolgswahrscheinlichkeit $q=1-p$ mit der folgenden Tabelle:
+        \renewcommand{\arraystretch}{2} % Für die Höhe der Spalten in der Tabelle
+            \begin{center}
+                \begin{tabular}{{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{4.5cm}|}}
+                \hline
+                $x_k$ & $0$ & $1$ & $2$ & $\Sigma$\\ \hline
+                $p_k$ & $q^2$ & $2pq$  & $p^2$ & \\ \hline
+                $x_k \cdot p_k$ &&&&
+            \\ \hline
+                \end{tabular}
+            \end{center}
+
+        \renewcommand{\arraystretch}{1} % Für die Höhe der Spalten in der Tabelle
+
+        \item 	Erstellen Sie je eine ähnliche Tabelle für den Fall $n=3$ und berechnen Sie den Erwartungswert. Vereinfachen Sie das Resultat.
+    \end{enumerate}
+
+
+\end{LA}
+
+\clearpage
+\begin{satz}
+    {Erwartungswert der Binomialverteilung}{}
+    Sei $X$ eine binomialverteilte Zufallsvariable mit Erfolgswahrscheinlichkeit $p$ und Länge $n$. Dann gilt:
+    \[
+        E(X) = n \cdot p
+    \]
+\end{satz}
+
+Für den Beweis der Formel werden wir zwei Sätze benötigen, die im \Cref{sec:Kombinatorik} vorgekommen sind:
+\begin{itemize}
+    \item Der Binomische Lehrsatz (\Cref{satz:binomLehrsatz}):
+    \[
+        (a+b)^n = \sum_{j=0}^n \binom{n}{j} a^j b^{n-j}.
+    \]
+    Konkret werden wir ihn für den Fall $a=p$ und $b=q=1-p$ verwenden. Ausserdem wird der Exponent nicht $n$ sein, sondern $n-1$. Die Formel, die wir brauchen lautet dann:
+  \[
+        \sum_{j=0}^{n-1} \binom{n-1}{j} p^j q^{(n-1)-j} = (p+q)^{n-1} = 1^{n-1} = 1.
+    \]
+    \item Die Identität
+    $$ \binom{n}{k} = \frac{n}{k} \cdot \binom{n-1}{k-1}$$
+    (Siehe \cref{uebng:ntiefk}). Diese Formel lässt sich leicht beweisen:
+    \begin{align*}
+        \binom{n}{k} &= \frac{n!}{k!(n-k)!} \\
+        &= \frac{n \cdot (n-1)!}{k \cdot (k-1)! \cdot (n-k)!} \\
+        &= \frac{n}{k} \cdot \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!} \\
+        &= \frac{n}{k} \cdot \binom{n-1}{k-1}
+    \end{align*}
+\end{itemize} 
+\begin{proof}
+    Sei $X$ eine binomialverteilte Zufallsvariable mit Erfolgswahrscheinlichkeit $p$ und Länge $n$. Dann gilt:
+    \begin{align*}
+        E(X) &= \sum_{k=0}^n k \cdot P(X=k)  & \text{erster Summand ist $=0$}\\
+             &= \sum_{k=1}^{n} k \cdot P(X=k)  & \text{Formel für die Binomialverteilung}\\
+             &= \sum_{k=1}^{n} k \cdot \binom{n}{k} p^k q^{n-k}  & \text{Zutat Nr.2}\\
+             &= \sum_{k=1}^{n} k \cdot \frac{n}{k} \binom{n-1}{k-1} p^k q^{n-k}  & \text{$k$ kürzen und $n$ und $p$ ausklammern}\\
+             &= np \cdot \sum_{k=1}^{n} \binom{n-1}{k-1} p^{k-1} q^{(n-1) - (k-1)} & \text{$k-1$ ersetzen durch $j = k-1$} \\
+             &= np \cdot \sum_{j=0}^{n-1} \binom{n-1}{j} p^j q^{(n-1)-j} & \text{Zutat Nr.1}\\
+             &= np \cdot (p+q)^{n-1} & \\
+             &= np
+    \end{align*}
+
+    %     \phantom{Beweis}
+% \vfill
+
+\end{proof}
+
+Auf ähnliche Art kann man eine Formel für die Standardabweichung der Binomialverteilung herleiten. Sie lautet:
+\begin{satz}
+    {Standardabweichung der Binomialverteilung}{}
+    Sei $X$ eine binomialverteilte Zufallsvariable mit Erfolgswahrscheinlichkeit $p$ und Länge $n$. Dann gilt:
+    \[
+        \sigma(X) = \sqrt{n  p  q}
+    \]
+\end{satz}
+
+\begin{bsp}
+    {}{}
+    Alice wirft 100-mal eine Münze und zählt, wie häufig diese auf Kopf landet (Zufallsvariable $X$). Es gilt:
+    $$E(X) = 50, \qquad \sigma(X) = \sqrt{100 \cdot \frac{1}{2} \cdot \frac{1}{2}} = 5$$
+    Wenn Sie die Münze 200-mal wirft, gilt hingegen:
+    $$E(X) = 100, \qquad \sigma(X) = \sqrt{200 \cdot \frac{1}{2} \cdot \frac{1}{2}} \approx 7.07$$
+    Während sich der Erwartungswert bei doppelter Anzahl Würfe verdoppelt, wächst die Standardabweichung nur um den Faktor $\sqrt{2}$. \\
+    Das bedeutet, dass die relative Abweichung des Erwartungswerts bei grösseren $n$ kleiner wird.
+\end{bsp}
+
+\begin{LA}
+    {Forschungsaufgabe}{}
+    Verwenden Sie für diese Aufgabe \href{https://www.geogebra.org/calculator}{Geogebra}.
+
+    \begin{enumerate}
+        \item Erzeugen Sie das Säulendiagramm der Binomialverteilung für $n=200$ und $p=0.7$. Kopieren Sie das Bild in Ihre Unterlagen.
+        \item Verändern Sie die Werte von $p$ und beobachten Sie, wie sich die Verteilung verändert.
+        \item Wie verändert sich die Verteilung, wenn Sie $n$ verändern?
+        \item Arbeiten Sie zu zweit, um die folgenden Tabellen auszufüllen. Berechnen Sie die Werte für $\mu = E(X)$ und $\sigma = \sigma(X)$ mit den Formeln aus dem Skript. Berechnen Sie anschliessend die Wahrscheinlichkeiten $P(\mu-\sigma \le X \le \mu+\sigma)$ und $P(\mu-1.64\cdot\sigma \le X \le \mu+1.64\cdot\sigma)$ mit Geogebra.
+    \end{enumerate}
+
+
+\renewcommand{\arraystretch}{2} % Für die Höhe der Spalten in der Tabelle
+
+      \begin{center}
+        \begin{tabular}{{|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{6cm}|}}
+        \hline
+        $n$ & $p$ & $\mu$ & $\sigma$ & $P(\mu-\sigma \le X \le \mu+\sigma)$\\ \hline
+        $200$ & $0.7$  &   & &\\ \hline
+        $200$ & $0.4$ &&& \\ \hline
+        $200$ & $0.1$ &&& \\ \hline
+        $100$ & $0.3$ &&& \\ \hline
+        $100$ & $0.5$ &&& \\ \hline
+        \end{tabular}
+    \end{center}
+
+\bigskip
+
+ \begin{center}
+        \begin{tabular}{{|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{6cm}|}}
+        \hline
+        $n$ & $p$ & $\mu$ & $1.64\cdot\sigma$ & $P(\mu-1.64\cdot\sigma \le X \le \mu+1.64\cdot\sigma)$\\ \hline
+        $200$ & $0.7$  &   & &\\ \hline
+        $200$ & $0.4$ &&& \\ \hline
+        $200$ & $0.1$ &&& \\ \hline
+        $100$ & $0.3$ &&& \\ \hline
+        $100$ & $0.5$ &&& \\ \hline
+        \end{tabular}
+    \end{center}
+\renewcommand{\arraystretch}{1} % Für die Höhe der Spalten in der Tabelle
+
+
+
+    
+    
+\end{LA}
+
+\clearpage
+Beobachtungen:
+\begin{itemize}
+    \item Die Binomialwahrscheinlichkeiten sind vor allem für Werte in der Nähe des Erwartungswerts $\mu = np$ gross. Sie gehen rasch gegen Null, wenn sich die Werte von $\mu$ entfernen.
+    \item Wenn $n$ gross und $p$ nicht nahe bei $0$ oder $1$ liegt, dann ist die Binomialverteilung annähernd symmetrisch. Das Säulendiagramm bildet eine `Glockenkurve'.
+    \item Nahezu unabhängig von $n$ und $p$ gilt:
+    $$ P(\mu - \sigma \le X \le \mu + \sigma) \approx 68.3\%$$
+    und
+    $$ P(\mu - 1.64 \cdot \sigma \le X \le \mu + 1.64 \cdot \sigma) \approx 90\%$$
+   
+\end{itemize}
+
+Die genaue Anzahl Erfolge bei einer Bernoulli Kette lässt sich nicht vorhersagen. Man kann aber berechnen, in welcher Bandbreite diese Anzahl typischerweise liegen wird.  Diese Vorhersage bildet die Grundlage für die sogenannten Hypothesentests, die im nächsten Kapitel behandelt werden. 
+
+\begin{definition}
+    {90\%-Vorhersageintervall}{}
+    Ein Intervall der Form $\left\{x_l, x_l+1, \dots , x_r-1, x_r \right\}$ heisst ein $90\%$-Vorhersageintervall für eine binomialverteilte Zufallsvariable $X$, falls:
+    $$P(x_l \le X \le x_r) \ge 0.9$$
+\end{definition}
+
+Ideal wäre es, wenn die Wahrscheinlichkeit $P(x_l \le X \le x_r)$ genau 90\% betragen würde. Dies ist im Allgemeinen aber nicht möglich. Deshalb wird das Intervall so gewählt, dass die Wahrscheinlichkeit $P(x_l \le X \le x_r)$ grösser, aber möglichst nahe bei 90\% liegt.
+
+\begin{satz}
+    {Näherung für das 90\%-Vorhersageintervall}{}
+    Für eine binomialverteilte Zufallsvariable $X$ sind die Grenzen des 90\%-Vorhersageintervalls näherungsweise:
+    $$x_l \approx \mu - 1.64 \cdot \sigma, \qquad x_r \approx \mu + 1.64 \cdot \sigma$$
+
+    \bigskip
+
+    Wenn die Werte von $\mu \pm 1.64\sigma$ keine ganze Zahlen sind, so wird auf die nächste ganze Zahl gerundet.
+
+    \bigskip
+
+    Diese Approximation ist umso genauer, je grösser $n$ ist und je näher $p$ bei $\frac{1}{2}$ liegt. Generell gilt die Näherung als sehr gut, wenn $\sigma >3$ ist.
+\end{satz}
+
+Diese Satz ist eine Folgerung des `zentralen Grenzwertsatzes' und der Näherung der Binomialverteilung durch die Normalverteilung (siehe später).
+
+% Tatsächlich kann jedem Intervall der Form $\left\{\mu-k\cdot\sigma, \dots , \mu + k\cdot\sigma\right\}$ eine bestimmte Wahrscheinlichkeit zugeordnet werden, wobei diese Näherungen wieder umso besser sind, die grösser $\sigma$ ist.
+
+% Es gilt ungefähr:
+% \begin{satz}
+%     {$\sigma$-Umgebungen und Wahrscheinlichkeiten}{}
+%     Für eine binomialverteilte Zufallsvariable $X$ mit $\sigma > 3$ gilt:
+
+%  \begin{center}
+%         \begin{tabular}{{|c|c|}}
+%         \hline
+%         $k$ & $P(\mu-k\cdot\sigma \le X \le \mu+k\cdot\sigma)$ \\ \hline
+%         $1$ & $68.3\%$ \\ \hline
+%         $1.64$ & $90\%$ \\ \hline
+%         $1.96$ & $95\%$ \\ \hline
+%         $2$ & $95.4\%$ \\ \hline
+%         $2.58$ & $99\%$ \\ \hline
+%         $3$ & $99.7\%$ \\ \hline
+%         \end{tabular}
+%     \end{center}
+
+%     --> Ergänzen Sie die Tabelle in Ihrer Formelsammlung!
+% \end{satz}
+
+
+\clearpage
+\begin{ueb}
+    {}{}
+    \begin{enumerate}
+\item Ein Würfel wird 1000 Mal geworfen. Die Zufallsgrösse \( X \) zählt die Anzahl der Sechsen.
+\begin{enumerate}
+    \item Berechne den Erwartungswert für die Anzahl der Sechsen.
+    \item Mit welcher Wahrscheinlichkeit werden genau 167 Sechsen gewürfelt?
+    \item Berechne die Standardabweichung für die Anzahl der Sechsen.
+    \item Berechne das 90\%-Vorhersageintervall für die Anzahl von Sechsen.
+\end{enumerate}
+
+\item Für eine binomialverteilte Zufallsgrösse \( X \) mit \( n = 2 \) ist \( P(X = 1) =  0.3 \) bekannt. \\
+Kannst du aus diesen Angaben den Erwartungswert berechnen?
+
+\item Gib eine binomialverteilte Zufallsgrösse \( X \) mit Erwartungswert \( E(X) = 8 \) und Standardabweichung \( \sigma = \sqrt{6} \) an.
+
+\item In Mitteleuropa haben 38\% der Menschen Blutgruppe 0. 
+In einer Zufallsstichprobe wird bei 100 Personen die Blutgruppe bestimmt. \\
+Berechne das 90\%-Vorhersageintervall für die Anzahl Personen mit Blutgruppe 0.
+
+\item Wie oft wird deine Lieblingszahl beim Lottospiel 6 aus 45 gezogen? \\
+Bestimme einen Bereich, der bei einer Wahrscheinlichkeit von ungefähr 90\% angibt, wie oft deine Zahl in 560 Ziehungen gezogen wird.
+
+\item Zwei Hellseher streiten sich darüber, wer das Ergebnis eines Münzwurfes öfter voraussagen kann. \\
+In einem Test kann der erste bei 6 von 10 Münzwürfen das richtige Ergebnis voraussagen. \\
+Der Zweite sagt das Resultat in 60 von 100 Münzwürfen richtig voraus. \\
+Angenommen die beiden haben in Wirklichkeit gar keine hellseherischen Fähigkeiten. Welches der Resultate wäre durch Zufall schwieriger zu erreichen? Argumentiere \dots
+\begin{enumerate}
+    \item \dots indem du die Standardabweichungen vergleichst.
+    \item \dots indem du (mit binomialCdf) die Wahrscheinlichkeit berechnest, durch Raten mindestens gleich gut abzuschneiden.
+\end{enumerate}
+
+\item Es ist gar nicht mal so einfach, echten Zufall zu simulieren\dots \\
+Arbeitet in Gruppen: Jeder schreibt zunächst ein mögliches Ergebnis eines 50-fachen Münzwurfs auf. Werft anschliessend eine Münze 50 Mal und notiert das Ergebnis.
+Im Folgenden werden eure konstruierten Beispiele und das echte Beispiel untersucht.
+
+\begin{enumerate}
+\item Untersuchung der Häufigkeiten von «Kopf» und «Zahl»:
+\begin{enumerate}
+    \item Wie gross ist die Wahrscheinlichkeit, dass «Zahl» genau 25 Mal erscheint?
+    \item Wie gross ist die Wahrscheinlichkeit, dass 20 bis 30 Mal «Zahl» erscheint?
+    \item In welchem Bereich liegen die notierten Häufigkeiten von «Zahl» in euren erfundenen Beispielen?
+\end{enumerate}
+
+\item Anzahl der Runs: Ein Run ist eine Folge von benachbarten gleichen Symbolen, die durch den Anfang, einen Wechsel oder das Ende begrenzt wird. \\
+Das Ergebnis (Z, Z, K, K, K, Z, K, K, K, K) eines 10-fachen Münzwurfs hat also die vier Runs Z, Z; K, K, K; Z und K, K, K, K.
+\begin{enumerate}
+    \item Wie viele Runs gibt es in den notierten Beispielen? Wie viele Runs gibt es in der echten Zufallsfolge, bei der eine Münze geworfen wurde?
+    \item Begründe, weshalb die Anzahl Runs gleich der Anzahl Wechsel plus Eins ist.
+    \item Wie wahrscheinlich ist es, dass ein Wechsel an einer vorgegebenen Stelle auftritt?
+    \item Wie gross ist der Erwartungswert für die Anzahl Wechsel, bzw. die Anzahl Runs? Wie viele Runs kannst du demnach in 50 Münzwürfen erwarten?
+\end{enumerate}
+
+\item Unterscheidung von konstruierten und echten Beispielen:
+
+    Bestimme das 90\%-Vorhersageintervall für die Anzahl Wechsel.
+    Bei wie vielen eurer konstruierten Beispiele liegt die tatsächliche Anzahl Wechsel in diesem Intervall?
+
+\end{enumerate}
+
+
+\item Um eine grosse Anzahl \( N \) von Personen mithilfe eines Bluttests auf eine seltene Krankheit zu testen, kann man an Stelle von Einzeltests auch das Blut von Gruppen mit jeweils \( g \) Personen zusammennehmen und testen (`Pooltest') \\
+Wenn der Test der kombinierten Blutmenge negativ ausfällt, dann weiss man, dass keine Person in der Gruppe die Krankheit hat. Anderenfalls müssen die Personen dieser Gruppe noch einzeln getestet werden, damit man weiss, wer die Krankheit hat. \\
+Mit dieser Methode hat die amerikanische Armee im Zweiten Weltkrieg die Rekruten auf Syphilis getestet. Vielleicht haben Sie solche Pooltests auch selbst während der Corona-Pandemie erlebt. \\
+Betrachte das Beispiel Anzahl Personen \( N = 500 \) und Gruppengrösse \( g = 10 \), und nimm an, dass ein Prozent in der Bevölkerung die Krankheit hat.
+
+\begin{enumerate}
+    \item Wie gross ist die Wahrscheinlichkeit \( p^* \), dass der Test der kombinierten Probe einer Zehnergruppe positiv ausfällt?
+    \item Wie wahrscheinlich ist es, dass in höchstens drei der 50 Gruppen noch einzeln getestet werden muss?
+    \item Berechne den Erwartungswert der Zufallsgrösse \( X = \) «Anzahl Gruppen, in denen noch einzeln getestet werden muss».
+    \item Wenn in 6 von den 50 Gruppen noch einzeln getestet werden muss, wie viele Tests werden dann insgesamt durchgeführt?
+    \item Drücke allgemein die Zufallsgrösse \( Y = \) «Anzahl benötigter Tests» aus als Funktion der Zufallsgrösse \( X \) von Teilaufgabe c) und berechne \( E(Y) \).
+    \item Wie ändert sich der erwartete Aufwand \( E(Y) \), wenn der Anteil \( p \) der Personen mit der Krankheit in der Bevölkerung variiert? Welche Gruppengrösse minimiert die erwartete Anzahl Tests?\\
+    Bestimme $E(Y)$ in Abhängigkeit von $p$ und $g$. Verwende in \href{https://www.geogebra.org/calculator}{Geogebra} einen Schieberegler für $p$ und zeichne den Graphen der Funktion $g\mapsto E(Y)$ für verschiedene Werte von $p$, um herauszufinden, welche Gruppengrösse ideal ist.
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+
+
+\end{ueb}
+
+\clearpage
+\emph{Lösungen:}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+    \item Erwartungswert: $166.\bar{6}$
+    \item Wahrscheinlichkeit für genau 167: $\approx 3.38\%$
+    \item Standardabweichung: $\approx 11.79$
+    \item 90\%-Vorhersageintervall: $147 \le X \le 186$
+\end{enumerate}
+
+\item Erwartungswert: $\mu_1 = 0.3675$ oder $\mu_2 = 1.6325$
+
+\item $n = 32,\ p = \frac{1}{4}$
+
+\item 90\%-Vorhersageintervall: $30 \le X \le 46$
+
+\item $p= \frac{6}{45}$, 90\%-Intervall in 560 Ziehungen: $61 \le X \le 88$
+
+
+\item 
+\begin{enumerate}
+    \item Standardabweichungen: Erste $\approx 1.58$, Zweite $= 5$. Der erste Hellseher ist weniger als eine Standardabweichung vom Erwartungswert entfernt, der zweite mehr.
+    \item Wahrscheinlichkeiten mindestens so gut: Erste $P(X\ge6) = 1- P(X\le5) \approx 37.70\%$, Zweite $\approx 2.84\%$
+\end{enumerate}
+
+\item 
+\begin{enumerate}
+\item 
+\begin{enumerate}
+    \item Wahrscheinlichkeit genau 25 Mal «Zahl»: $\approx 11.2\%$
+    \item Wahrscheinlichkeit 20–30 Mal «Zahl» (Grenzen inbegriffen): $\approx 88.11\%$ )
+    \item \dots
+\end{enumerate}
+
+\item 
+\begin{enumerate}
+    \item \dots
+    \item \dots
+    \item Wahrscheinlichkeit Wechsel an gegebener Stelle: $50\%$
+    \item Erwartungswert Wechsel: $24.5$, Runs: $25.5$
+\end{enumerate}
+
+\item 90\%-Vorhersageintervall für Wechsel: $19 \le X \le 30$. 
+\end{enumerate}
+
+\item 
+\begin{enumerate}
+    \item $p^* \approx 9.56\%$ 
+    \item Wahrscheinlichkeit höchstens 3 von 50: $\approx 28.35\%$
+    \item Erwartungswert $X$: $4.78$
+    \item Anzahl Tests bei 6 positiven Gruppen: $110$
+    \item $Y = 50 + 10X$, $E(Y) = 97.8$
+    \item $E(Y) = \frac{500}{g} + 500 - 500 \cdot (1-p)^g$
+\end{enumerate}
+\end{enumerate}
+
+
